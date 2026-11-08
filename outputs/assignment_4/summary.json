@@ -1,0 +1,134 @@
+{
+  "experiment_metadata": {
+    "dataset": "IBM TechQA (CDLA-Permissive 1.0)",
+    "split": "dev (frozen evaluation subset)",
+    "n_questions": 20,
+    "total_evaluations": 40,
+    "random_seed": 42,
+    "encoder_model": "sentence-transformers/all-mpnet-base-v2 (e8c3b32edf5434bc2275fc9bab85f82640a19130)",
+    "generator_model": "Qwen/Qwen2.5-1.5B-Instruct (989aa7980e4cf806f80c7fef2b1adb7bc71aa306)",
+    "context_budget_qwen_tokens": 1280,
+    "top_k_chunks": 5
+  },
+  "H1_Evidence_Retrieval_Coverage": {
+    "fixed_rate": 0.4,
+    "semantic_rate": 0.35,
+    "absolute_difference": -0.05,
+    "mcnemar_contingency": {
+      "both_1": 6,
+      "base1_prop0": 2,
+      "base0_prop1": 1,
+      "both_0": 11
+    },
+    "mcnemar_statistic": 1.0,
+    "mcnemar_p_value": 1.0,
+    "bootstrap_95_ci": [
+      -0.2,
+      0.1
+    ],
+    "holm_adjusted": {
+      "raw_p": 1.0,
+      "holm_rank": 1,
+      "adjusted_threshold": 0.025,
+      "rejected": false
+    }
+  },
+  "H2_Answer_Factual_Correctness": {
+    "fixed_rate": 0.1,
+    "semantic_rate": 0.15,
+    "absolute_difference": 0.05,
+    "mcnemar_contingency": {
+      "both_1": 1,
+      "base1_prop0": 1,
+      "base0_prop1": 2,
+      "both_0": 16
+    },
+    "mcnemar_statistic": 1.0,
+    "mcnemar_p_value": 1.0,
+    "bootstrap_95_ci": [
+      -0.1,
+      0.2
+    ],
+    "holm_adjusted": {
+      "raw_p": 1.0,
+      "holm_rank": 2,
+      "adjusted_threshold": 0.05,
+      "rejected": false
+    }
+  },
+  "Objective_3_Coverage_Correctness_Association": {
+    "fixed_condition": {
+      "covered_total": 8,
+      "covered_correct": 1,
+      "covered_incorrect": 7,
+      "correctness_rate_when_covered": 0.125,
+      "not_covered_total": 12,
+      "not_covered_correct": 1,
+      "not_covered_incorrect": 11,
+      "correctness_rate_when_not_covered": 0.0833
+    },
+    "semantic_condition": {
+      "covered_total": 7,
+      "covered_correct": 2,
+      "covered_incorrect": 5,
+      "correctness_rate_when_covered": 0.2857,
+      "not_covered_total": 13,
+      "not_covered_correct": 1,
+      "not_covered_incorrect": 12,
+      "correctness_rate_when_not_covered": 0.0769
+    }
+  },
+  "Implementation_Diagnostics": {
+    "qwen_context_tokens": {
+      "baseline": {
+        "mean": 1103.4,
+        "std": 98.8408609304557,
+        "median": 1104.0,
+        "iqr": 125.0
+      },
+      "proposed": {
+        "mean": 1042.45,
+        "std": 131.38712385842638,
+        "median": 1022.0,
+        "iqr": 148.75
+      },
+      "difference_mean": -60.95,
+      "wilcoxon_stat": 58.0,
+      "wilcoxon_p_value": 0.082550048828125
+    },
+    "corpus_chunk_counts": {
+      "baseline": {
+        "mean": 225.95,
+        "std": 63.4204640723946,
+        "median": 209.5,
+        "iqr": 98.0
+      },
+      "proposed": {
+        "mean": 246.15,
+        "std": 72.58771463401692,
+        "median": 231.5,
+        "iqr": 104.75
+      },
+      "difference_mean": 20.2,
+      "wilcoxon_stat": 1.0,
+      "wilcoxon_p_value": 0.00010220102835688598
+    },
+    "latency_ms": {
+      "baseline": {
+        "mean": 9474.4815,
+        "std": 2434.8853714190045,
+        "median": 10154.665,
+        "iqr": 2847.71
+      },
+      "proposed": {
+        "mean": 48127.597499999996,
+        "std": 17509.315468308767,
+        "median": 48803.475,
+        "iqr": 31129.039999999994
+      },
+      "difference_mean": 38653.116,
+      "wilcoxon_stat": 0.0,
+      "wilcoxon_p_value": 1.9073486328125e-06
+    }
+  }
+}

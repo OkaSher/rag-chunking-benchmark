@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-11-08T11:01:51Z",
+  "hardware": {
+    "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "os": "Windows-11-10.0.26100-SP0",
+    "python": "3.12.10",
+    "torch": "2.6.0+cu124"
+  },
+  "models": {
+    "encoder": {
+      "id": "sentence-transformers/all-mpnet-base-v2",
+      "revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130"
+    },
+    "generator": {
+      "id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+    }
+  },
+  "parameters": {
+    "fixed_chunk_size": 256,
+    "semantic_min": 128,
+    "semantic_max": 320,
+    "context_budget_qwen": 1280,
+    "top_k": 5,
+    "seed": 42,
+    "n_questions": 20
+  },
+  "code_hashes": {
+    "chunkers.py": "468b5baa93ca67c6267e87e61a7d1a63a8abe9591fea8f9e33921f09660f5976",
+    "retriever.py": "932c7c74116bdb23d345f9bb526ac483fd7f0bf84a575c0c177451dd64b0a3e3",
+    "generator.py": "9a4489a1b70d97a20f027b761212da030e064657e6c48081aa15bab0e1c9cef3",
+    "metrics.py": "2230ace6b9fb137928ee9d70c2a147544438e6fb8b938a2e61f027d8c28f1a1d",
+    "stats.py": "f6afe972aabd1223697e43ada6d22972672f280b4aa2f850d73622af3fe40fcf"
+  }
+}
