@@ -1,4 +1,4 @@
-# Fixed Token and Semantic Chunking in Technical Support Question Answering
+# Fixed Token and Semantic Chunking 
 ### Research Methods and Tools — Assignment 4: Experiment Execution, Results and Discussion
 **Authors:** Ramazan Nagimov, Nurgeldi Yessengeldi, Zhetpis Baigulov  
 **Affiliation:** Master's Programme in Computer Science / Artificial Intelligence  
@@ -247,7 +247,7 @@ Every single numeric value presented in Tables 2, 3, and 4 is directly traceable
 | Item | Reproduction Record |
 | :--- | :--- |
 | **Independent Assessor** | Zhetpis Baigulov (Peer Assessor / Co-author) |
-| **Date, Hardware, OS** | 2026-11-08, Intel Core i7-13620H, RTX 4050 6GB Laptop GPU, Windows 11 Build 26100 |
+| **Date, Hardware, OS** | 2026-11-08, Intel Core i5-13420H, RTX 4050 6GB Laptop GPU, Windows 11 Build 26100 |
 | **Commit / Tag** | Git release tag `assignment-4` (SHA: `468b5baa93ca`) |
 | **Commands Executed** | `pip install -r requirements.txt`<br>`python run_benchmark.py --split dev --limit 20 --seed 42`<br>`python compute_final_results.py` |
 | **Results Table Reproduced?** | **YES (100% Exact Match)**: Fixed 40.0% cov / 10.0% acc; Semantic 35.0% cov / 15.0% acc; all $p$-values identical |
