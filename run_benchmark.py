@@ -30,7 +30,7 @@ from src.config import (
     RANDOM_SEED,
     OUTPUTS_DIR,
 )
-from src.chunkers import fixed_chunks, semantic_chunks
+from src.chunkers import fixed_chunks, semantic_chunks, semantic_chunks_pool
 from src.dataset import TechQADataset, TechQAQuestion
 from src.retriever import EncoderBackend, VectorRetriever
 from src.generator import QwenGenerator
@@ -65,30 +65,43 @@ def process_question_condition(
   all_chunks = []
   doc_chunk_counts = {}
 
-  for doc_id in q.candidate_doc_ids:
-    doc_text = dataset.get_document_text(doc_id)
-    if not doc_text:
-      continue
-
-    if condition == "fixed_token":
+  if condition == "semantic":
+    doc_dict = {
+        doc_id: dataset.get_document_text(doc_id)
+        for doc_id in q.candidate_doc_ids
+    }
+    pool_spans = semantic_chunks_pool(
+        doc_dict, backend, SEMANTIC_TARGET_MIN, SEMANTIC_HARD_MAX
+    )
+    for doc_id in q.candidate_doc_ids:
+      spans = pool_spans.get(doc_id, [])
+      doc_text = doc_dict.get(doc_id, "")
+      doc_chunk_counts[doc_id] = len(spans)
+      for idx, (s, e) in enumerate(spans):
+        all_chunks.append({
+            "chunk_id": f"{doc_id}_c{idx:03d}",
+            "doc_id": doc_id,
+            "start_char": s,
+            "end_char": e,
+            "content": doc_text[s:e],
+        })
+  elif condition == "fixed_token":
+    for doc_id in q.candidate_doc_ids:
+      doc_text = dataset.get_document_text(doc_id)
+      if not doc_text:
+        continue
       spans = fixed_chunks(doc_text, backend, FIXED_CHUNK_SIZE)
-    elif condition == "semantic":
-      spans = semantic_chunks(
-          doc_text, backend, SEMANTIC_TARGET_MIN, SEMANTIC_HARD_MAX
-      )
-    else:
-      raise ValueError(f"Unknown condition: {condition}")
-
-    doc_chunk_counts[doc_id] = len(spans)
-    for idx, (s, e) in enumerate(spans):
-      chunk_text = doc_text[s:e]
-      all_chunks.append({
-          "chunk_id": f"{doc_id}_c{idx:03d}",
-          "doc_id": doc_id,
-          "start_char": s,
-          "end_char": e,
-          "content": chunk_text,
-      })
+      doc_chunk_counts[doc_id] = len(spans)
+      for idx, (s, e) in enumerate(spans):
+        all_chunks.append({
+            "chunk_id": f"{doc_id}_c{idx:03d}",
+            "doc_id": doc_id,
+            "start_char": s,
+            "end_char": e,
+            "content": doc_text[s:e],
+        })
+  else:
+    raise ValueError(f"Unknown condition: {condition}")
 
   total_corpus_chunks = len(all_chunks)
 
@@ -221,7 +234,8 @@ def run_benchmark(
   for idx, q in enumerate(questions, start=1):
     print(
         f"\n[{idx}/{len(questions)}] Processing {q.question_id}:"
-        f" '{q.title[:60]}...'"
+        f" '{q.title[:60]}...'",
+        flush=True,
     )
 
     # 1. Fixed Condition
@@ -256,10 +270,12 @@ def run_benchmark(
     semantic_latencies.append(rec_sem["elapsed_ms"])
 
     print(
-        f"  Fixed:    Coverage={rec_fixed['evidence_coverage']}, Correct={rec_fixed['factual_correctness']}, Tokens={rec_fixed['qwen_context_tokens']}, Chunks={rec_fixed['total_corpus_chunks']}"
+        f"  Fixed:    Coverage={rec_fixed['evidence_coverage']}, Correct={rec_fixed['factual_correctness']}, Tokens={rec_fixed['qwen_context_tokens']}, Chunks={rec_fixed['total_corpus_chunks']}",
+        flush=True,
     )
     print(
-        f"  Semantic: Coverage={rec_sem['evidence_coverage']}, Correct={rec_sem['factual_correctness']}, Tokens={rec_sem['qwen_context_tokens']}, Chunks={rec_sem['total_corpus_chunks']}"
+        f"  Semantic: Coverage={rec_sem['evidence_coverage']}, Correct={rec_sem['factual_correctness']}, Tokens={rec_sem['qwen_context_tokens']}, Chunks={rec_sem['total_corpus_chunks']}",
+        flush=True,
     )
 
   # --- Statistical Computations ---

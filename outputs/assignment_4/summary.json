@@ -1,134 +1,126 @@
 {
   "experiment_metadata": {
-    "dataset": "IBM TechQA (CDLA-Permissive 1.0)",
-    "split": "dev (frozen evaluation subset)",
-    "n_questions": 20,
-    "total_evaluations": 40,
+    "n_questions": 149,
+    "is_pilot": false,
     "random_seed": 42,
     "encoder_model": "sentence-transformers/all-mpnet-base-v2 (e8c3b32edf5434bc2275fc9bab85f82640a19130)",
     "generator_model": "Qwen/Qwen2.5-1.5B-Instruct (989aa7980e4cf806f80c7fef2b1adb7bc71aa306)",
-    "context_budget_qwen_tokens": 1280,
+    "budget_limit_qwen_tokens": 1280,
     "top_k_chunks": 5
   },
   "H1_Evidence_Retrieval_Coverage": {
-    "fixed_rate": 0.4,
-    "semantic_rate": 0.35,
-    "absolute_difference": -0.05,
+    "fixed_rate": 0.3826,
+    "semantic_rate": 0.3624,
+    "absolute_difference": -0.0201,
+    "mcnemar_p_value": 0.6636238098144531,
     "mcnemar_contingency": {
-      "both_1": 6,
-      "base1_prop0": 2,
-      "base0_prop1": 1,
-      "both_0": 11
+      "both_1": 45,
+      "base1_prop0": 12,
+      "base0_prop1": 9,
+      "both_0": 83
     },
-    "mcnemar_statistic": 1.0,
-    "mcnemar_p_value": 1.0,
     "bootstrap_95_ci": [
-      -0.2,
-      0.1
+      -0.0805,
+      0.0403
     ],
     "holm_adjusted": {
-      "raw_p": 1.0,
-      "holm_rank": 1,
-      "adjusted_threshold": 0.025,
-      "rejected": false
-    }
-  },
-  "H2_Answer_Factual_Correctness": {
-    "fixed_rate": 0.1,
-    "semantic_rate": 0.15,
-    "absolute_difference": 0.05,
-    "mcnemar_contingency": {
-      "both_1": 1,
-      "base1_prop0": 1,
-      "base0_prop1": 2,
-      "both_0": 16
-    },
-    "mcnemar_statistic": 1.0,
-    "mcnemar_p_value": 1.0,
-    "bootstrap_95_ci": [
-      -0.1,
-      0.2
-    ],
-    "holm_adjusted": {
-      "raw_p": 1.0,
+      "raw_p": 0.6636238098144531,
       "holm_rank": 2,
       "adjusted_threshold": 0.05,
       "rejected": false
     }
   },
+  "H2_Answer_Factual_Correctness": {
+    "fixed_rate": 0.1141,
+    "semantic_rate": 0.1342,
+    "absolute_difference": 0.0201,
+    "mcnemar_p_value": 0.6072387695312499,
+    "mcnemar_contingency": {
+      "both_1": 11,
+      "base1_prop0": 6,
+      "base0_prop1": 9,
+      "both_0": 123
+    },
+    "bootstrap_95_ci": [
+      -0.0268,
+      0.0738
+    ],
+    "holm_adjusted": {
+      "raw_p": 0.6072387695312499,
+      "holm_rank": 1,
+      "adjusted_threshold": 0.025,
+      "rejected": false
+    }
+  },
   "Objective_3_Coverage_Correctness_Association": {
     "fixed_condition": {
-      "covered_total": 8,
-      "covered_correct": 1,
-      "covered_incorrect": 7,
-      "correctness_rate_when_covered": 0.125,
-      "not_covered_total": 12,
-      "not_covered_correct": 1,
-      "not_covered_incorrect": 11,
-      "correctness_rate_when_not_covered": 0.0833
+      "cov1_corr1": 12,
+      "cov1_corr0": 45,
+      "cov0_corr1": 5,
+      "cov0_corr0": 87,
+      "correctness_when_covered": 0.2105,
+      "correctness_when_not_covered": 0.0543
     },
     "semantic_condition": {
-      "covered_total": 7,
-      "covered_correct": 2,
-      "covered_incorrect": 5,
-      "correctness_rate_when_covered": 0.2857,
-      "not_covered_total": 13,
-      "not_covered_correct": 1,
-      "not_covered_incorrect": 12,
-      "correctness_rate_when_not_covered": 0.0769
+      "cov1_corr1": 14,
+      "cov1_corr0": 40,
+      "cov0_corr1": 6,
+      "cov0_corr0": 89,
+      "correctness_when_covered": 0.2593,
+      "correctness_when_not_covered": 0.0632
     }
   },
   "Implementation_Diagnostics": {
     "qwen_context_tokens": {
       "baseline": {
-        "mean": 1103.4,
-        "std": 98.8408609304557,
-        "median": 1104.0,
-        "iqr": 125.0
+        "mean": 1122.6979865771812,
+        "std": 89.44949539068662,
+        "median": 1117.0,
+        "iqr": 127.0
       },
       "proposed": {
-        "mean": 1042.45,
-        "std": 131.38712385842638,
-        "median": 1022.0,
-        "iqr": 148.75
+        "mean": 1083.7181208053692,
+        "std": 120.82537547471941,
+        "median": 1089.0,
+        "iqr": 194.0
       },
-      "difference_mean": -60.95,
-      "wilcoxon_stat": 58.0,
-      "wilcoxon_p_value": 0.082550048828125
+      "difference_mean": -38.97986577181208,
+      "wilcoxon_stat": 3877.0,
+      "wilcoxon_p_value": 0.0011885226920091848
     },
     "corpus_chunk_counts": {
       "baseline": {
-        "mean": 225.95,
-        "std": 63.4204640723946,
-        "median": 209.5,
-        "iqr": 98.0
+        "mean": 218.93959731543623,
+        "std": 61.39770972354106,
+        "median": 211.0,
+        "iqr": 86.0
       },
       "proposed": {
-        "mean": 246.15,
-        "std": 72.58771463401692,
-        "median": 231.5,
-        "iqr": 104.75
+        "mean": 239.70469798657717,
+        "std": 67.73652287971274,
+        "median": 229.0,
+        "iqr": 92.0
       },
-      "difference_mean": 20.2,
-      "wilcoxon_stat": 1.0,
-      "wilcoxon_p_value": 0.00010220102835688598
+      "difference_mean": 20.76510067114094,
+      "wilcoxon_stat": 3.5,
+      "wilcoxon_p_value": 3.5171323030094916e-26
     },
     "latency_ms": {
       "baseline": {
-        "mean": 9474.4815,
-        "std": 2434.8853714190045,
-        "median": 10154.665,
-        "iqr": 2847.71
+        "mean": 10705.822953020133,
+        "std": 2598.2033968513974,
+        "median": 11187.52,
+        "iqr": 3652.9299999999985
       },
       "proposed": {
-        "mean": 48127.597499999996,
-        "std": 17509.315468308767,
-        "median": 48803.475,
-        "iqr": 31129.039999999994
+        "mean": 68989.51080536912,
+        "std": 12613.120148093356,
+        "median": 66932.95,
+        "iqr": 17496.239999999998
       },
-      "difference_mean": 38653.116,
+      "difference_mean": 58283.68785234901,
       "wilcoxon_stat": 0.0,
-      "wilcoxon_p_value": 1.9073486328125e-06
+      "wilcoxon_p_value": 3.3569019045910546e-26
     }
   }
 }

@@ -4,13 +4,13 @@
 
 | Error Category | Fixed-Token Count | Semantic Count | Total | Primary Mitigation |
 | :--- | :---: | :---: | :---: | :--- |
-| `GENERATION_FACTUAL_OMISSION` | 0 | 1 | 1 | Few-shot prompt formatting with explicit technical entity checklist. |
-| `GENERATION_UNSUPPORTED_OR_INCORRECT` | 8 | 5 | 13 | Constrained decoding or citation enforcement. |
-| `RETRIEVAL_BOUNDARY_SPLIT` | 0 | 1 | 1 | Overlapping chunks or sentence-merging window. |
-| `RETRIEVAL_BUDGET_EXCLUSION` | 3 | 2 | 5 | Dynamic context budget compression or extractive summary. |
-| `RETRIEVAL_GOLD_DOC_MISSED` | 8 | 9 | 17 | Hybrid BM25 + dense retrieval or cross-encoder re-ranking. |
+| `GENERATION_FACTUAL_OMISSION` | 8 | 19 | 27 | Few-shot prompt formatting with explicit technical entity checklist. |
+| `GENERATION_UNSUPPORTED_OR_INCORRECT` | 42 | 36 | 78 | Constrained decoding or citation enforcement. |
+| `RETRIEVAL_BOUNDARY_SPLIT` | 7 | 8 | 15 | Overlapping chunks or sentence-merging window. |
+| `RETRIEVAL_BUDGET_EXCLUSION` | 15 | 14 | 29 | Dynamic context budget compression or extractive summary. |
+| `RETRIEVAL_GOLD_DOC_MISSED` | 65 | 58 | 123 | Hybrid BM25 + dense retrieval or cross-encoder re-ranking. |
 
-### Detailed Case Manifest (37 Cases)
+### Detailed Case Manifest (272 Cases)
 
 | Case # | Question ID | Condition | Taxonomy | Golden Document & Answer Span | Generated Answer Snippet | Error Diagnostic |
 | :---: | :--- | :---: | :--- | :--- | :--- | :--- |
